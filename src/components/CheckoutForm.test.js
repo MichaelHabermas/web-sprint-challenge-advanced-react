@@ -7,10 +7,10 @@ import CheckoutForm from './CheckoutForm';
 
 test('form header renders', () => {
 	render(<CheckoutForm />);
-	const header = screen.queryByText(/react plants/i);
+	const header = screen.queryByText(/checkout form/i);
 	expect(header).toBeTruthy();
 	expect(header).toBeInTheDocument();
-	expect(header).toHaveTextContent(/react plants/i);
+	expect(header).toHaveTextContent(/checkout form/i);
 });
 
 test('form shows success message on submit with form details', async () => {
