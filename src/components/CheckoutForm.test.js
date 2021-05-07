@@ -24,11 +24,36 @@ test('form shows success message on submit with form details', async () => {
 	const zip = '87901';
 
 	const firstNameInput = screen.getByLabelText(/first name:/i);
+	const lastNameInput = screen.getByLabelText(/last name:/i);
+	const addressInput = screen.getByLabelText(/address:/i);
+	const cityInput = screen.getByLabelText(/city:/i);
+	const stateInput = screen.getByLabelText(/state:/i);
+	const zipInput = screen.getByLabelText(/zip:/i);
 
 	userEvent.type(firstNameInput, firstName);
+	userEvent.type(lastNameInput, lastName);
+	userEvent.type(addressInput, address);
+	userEvent.type(cityInput, city);
+	userEvent.type(stateInput, state);
+	userEvent.type(zipInput, zip);
 
 	expect(firstNameInput).toHaveValue(firstName);
+	expect(lastNameInput).toHaveValue(lastName);
+	expect(addressInput).toHaveValue(address);
+	expect(cityInput).toHaveValue(city);
+	expect(stateInput).toHaveValue(state);
+	expect(zipInput).toHaveValue(zip);
+
+	expect(screen.queryByTestId('successMessage')).toBeFalsy();
 
 	const submitButton = screen.queryByRole('button');
 	userEvent.click(submitButton);
+
+	const postSubmittedSection = screen.getByTestId('successMessage');
+	expect(postSubmittedSection).toBeInTheDocument();
+
+	const successMessage = screen.queryByText(/You have ordered some plants! Woo-hoo!/i);
+
+	expect(successMessage).toBeTruthy();
+	expect(successMessage).toBeInTheDocument();
 });
